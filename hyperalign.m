@@ -1,4 +1,4 @@
-function[aligned, transforms] = hyperalign(varargin)
+function[aligned, transforms,template2] = hyperalign(varargin)
 %HYPERALIGN  Hyperalign a series of high-dimensional trajectories
 %
 %This function implements the "hyperalignment" algorithm described by the
@@ -109,6 +109,7 @@ template2 = template2./length(varargin);
 %save the transformation parameters
 [aligned, transforms] = deal(cell(size(varargin)));
 for s = 1:length(varargin)
-    [~, next, transforms{s}] = procrustes(template2', varargin{s}');
+    [~, next, transform] = procrustes(template2', varargin{s}');
     aligned{s} = next';
+    transforms{s} = transform';
 end
